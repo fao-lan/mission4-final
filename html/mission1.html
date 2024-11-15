@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Compte rendu KDou - Accueil</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="container">
+    <header>
+        <div class="bandeau">
+            <img src="Logo.png" alt="logo Kdou" width="215" height="195"/>
+        </div>
+        <div class="barre">
+            <nav>
+                <ul>
+                    <li><a href ="index.html"><h3> Accueil</h3></a></li>
+                    <li><a href ="mission1.html"><h3>Mission1</h3></a></li>
+                    <li><a href ="mission2.html"><h3>Mission2</h3></a></li>
+                    <li><a href ="mission3.html"><h3>Mission3</h3></a></li>
+                    <li><a href ="conclusion.html"><h3>Conclusion</h3></a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <div class="page">
+        <div class="titre"> -- Mission 1 --</div>
+        <section class="pwrap">
+            <ul class="texte-mission1">
+                <li> <h2> Contexte </h2>
+                    <p>Notre première mission consistait à étudier la base de données sur le logiciel “Excel” de
+                        l’entreprise Kdou. Pour cela, nous avons répondu à plusieurs questions en usant des propriétés
+                        d’Excel ( tri par ordre croissant/décroissant, alphabétique/ de Z à A, ou encore la recherche
+                        de mot précis). Comme ceci fut nos premiers travaux sur des bases de données, le but principal
+                        de cette mission était surtout de se familiariser avec l’exploitation des bases de données,
+                        en distinguant les différents types de clés primaires et secondaires.
+                    </p>
+                </li>
+                <li>
+                    <h2> Bilan </h2>
+                    <p>Excel s’est révélé être difficile lors de l’étude des données :
+                        pour la plupart des questions il a fallu lire les tables pour pouvoir y répondre
+                        car impossible de formuler des requêtes. De plus, la base de données sur Excel est incorrecte :
+                        présence d’aucune clé primaire dans certaines tables (par exemple dans la table “ DetailCommande”),
+                        incohérence entre les données et les tables (l’attribut “Prix unitaire” est retrouvable dans deux
+                        tables mais les valeurs ne se correspondent pas)     <p> (voir illustration en dessous)</p>
+                    </p>
+                </li>
+                <li>
+                    <h2> Perspective d’amélioration, conclusion </h2>
+                    <p>Pour conclure, Excel n’est pas le bon logiciel lorsqu’il s’agit d’étude de bases de données
+                        car les tables ne sont pas directement liées entre elles ( il est possible de supprimer n’importe
+                        quelle données ou de la modifier). De plus, pour des recherches précises cela prend du temps
+                        car nous devons lire chaque données ( comme dit précedemment, impossible de formuler des requêtes).
+                    </p>
+                </li>
+            </ul>
+            <ul class="table">
+                <li>
+                    <table>
+                        <caption>DetailCommande</caption>
+                        <thead>
+                            <th>Ref produit</th>
+                            <th>Prix Unitaire</th>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>12</td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>12,6</td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>12,6</td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>12,6</td>
+                        </tr>
+                        </tbody>
+                        </table>
+                </li>
+                <li>
+                    <table>
+                        <caption>Produit</caption>
+                        <thead>
+                            <th>Ref produit</th>
+                            <th>Prix Unitaire</th>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>27,50</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>17,42</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>9,17</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>18,33</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </li>
+            </ul>
+        </section>
+    </div>
+    <footer>
+        <div class="footer">
+            <div class="groupe">
+                Alyssa AUBRY - Alicia BESSAS - Mehtab CHEEMA - Guillaume MARTINS
+            </div>
+        </div>
+    </footer>
+</div>
+</body>
+</html>

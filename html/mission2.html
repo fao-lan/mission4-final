@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Compte rendu KDou - Mission 2</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="container">
+    <header>
+        <div class="bandeau">
+            <img src="Logo.png" alt="logo Kdou" width="215" height="195"/>
+        </div>
+        <div class="barre">
+            <nav>
+                <ul>
+                    <li><a href ="index.html"><h3> Accueil</h3></a></li>
+                    <li><a href ="mission1.html"><h3>Mission1</h3></a></li>
+                    <li><a href ="mission2.html"><h3>Mission2</h3></a></li>
+                    <li><a href ="mission3.html"><h3>Mission3</h3></a></li>
+                    <li><a href ="conclusion.html"><h3>Conclusion</h3></a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <div class="page">
+        <div class="titre"> -- Mission 2 --</div>
+        <div class="pwrap">
+            <h2> Contexte </h2>
+            <p>L'objectif de cette mission est d'entamer l'exploitation de la base de données de l’entreprise KDou
+                afin de produire des analyses et des indicateurs pertinents. Les requêtes seront réalisées à l’aide
+                du logiciel Low Code Access. Cela implique une vérification de la structure des tables et des relations,
+                ainsi qu’une compréhension approfondie du contenu de chaque table et des liens entre elles.
+                Dans un premier temps, le travail s'effectuera via le mode graphique (Query By Example - QBE),
+                qui génère automatiquement du code SQL pour produire des résultats et des indicateurs. Cette phase
+                constitue une introduction à la base de données KDou et au travail de recherche de données, avant
+                de passer à l’utilisation directe du langage SQL dans des missions futures.
+            </p>
+            <h3> Voici des indicateurs intéréssants pour cette deuxième mission :</h3>
+            <ul>
+                <li>
+                    <div class="exemple1">
+                        <h3>Quels sont les produits conditionnés dans du carton ou dans du verre ? </h3>
+                        <table>
+                            <caption>Requete QBE</caption>
+                            <tr>
+                                <th>Champ :</th>
+                                <td>NomProd</td>
+                                <td>QteParUnite</td>
+                            </tr>
+                            <tr>
+                                <th>Table :</th>
+                                <td>Produit</td>
+                                <td>Produit</td>
+                            </tr>
+                            <tr>
+                                <th>Critères :</th>
+                                <td></td>
+                                <td>Comme"*carton*"</td>
+                            </tr>
+                            <tr>
+                                <th>Ou :</th>
+                                <td></td>
+                                <td>Comme"*verre*"</td>
+                            </tr>
+                        </table>
+                        <div>SELECT NomProd,QteParUnite</div>
+                        <div>FROM Produit</div>
+                        <div>WHERE (QteParUnite LIKE "*carton*") OR (QteParUnite LIKE "*verre*");</div>
+                        <table>
+                            <caption>Produits conditionnés dans carton ou verre</caption>
+                            <thead>
+                            <th>NomProd</th>
+                            <th>QteParUnite</th>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>Gudbrandsdaksost</td>
+                                <td>1 carton(10kg)</td>
+                            </tr>
+                            <tr>
+                                <td>Carnarvon Tigers</td>
+                                <td>1 carton(16kg)</td>
+                            </tr>
+                            <tr>
+                                <td>Rogede sild</td>
+                                <td>1 carton(1kg)</td>
+                            </tr>
+                            <tr>
+                                <td>Queso Cabrales</td>
+                                <td>1 carton(1kg)</td>
+                            </tr>
+                            <tr>
+                                <td>Maxilaku</td>
+                                <td>1 carton(24kg)</td>
+                            </tr>
+                            <tr>
+                                <td>Longlife Tofu</td>
+                                <td>1 carton(5kg)</td>
+                            </tr>
+                            <tr>
+                                <td>...</td>
+                                <td>...</td>
+                            </tr>
+                            <tr>
+                                <td>Nord-Ost Matjeshering</td>
+                                <td>10 verres(200g)</td>
+                            </tr>
+                            <tr>
+                                <td>Et plus...</td>
+                                <td>...</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p> On obtiendrait ces résultats si on suivait à la lettre les indications de l’énoncé.
+                        Cependant, on peut y ajouter plus de nuances en supposant que les produits en bouteilles étant en verre ou en carton
+                        même si cela n’est pas précisé. De plus, il y a beaucoup de produits dont on ignore le
+                        moyen de conditionnement, représentés seulement par des chiffres. On peut supposer que bons nombres d'entre eux
+                        sont conditionnés dans du verre ou du carton surtout quand cela correspond à des boissons.
+
+                    </p>
+                </li>
+                <li>
+                    <div class="exemple1">
+                        <h3>Donner pour chaque fournisseur le nombre de produits qu'il propose en bouteille.</h3>
+                        <table>
+                            <caption>Requete QBE</caption>
+                            <tr>
+                                <th>Champ :</th>
+                                <td>Societe</td>
+                                <td>QteParUnite</td>
+                                <td>QteParUnite</td>
+                            </tr>
+                            <tr>
+                                <th>Table :</th>
+                                <td>Fournisseur</td>
+                                <td>Produit</td>
+                                <td>Fournisseur</td>
+                            </tr>
+                            <tr>
+                                <th>Opération :</th>
+                                <td>Regroupement</td>
+                                <td>Où</td>
+                                <td>Compte</td>
+                            </tr>
+                            <tr>
+                                <th>Critères :</th>
+                                <td></td>
+                                <td>Comme"*bouteille*"</td>
+                                <td></td>
+                            </tr>
+
+                        </table>
+                        <table>
+                            <caption>Produits conditionnés dans des bouteilles</caption>
+                            <thead>
+                            <th>Societe</th>
+                            <th>CompteQteParUnite</th>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>Exotic Liquids</td>
+                                <td>4</td>
+                            </tr>
+                            <tr>
+                                <td>Bigfoot Breweries</td>
+                                <td>3</td>
+                            </tr>
+                            <tr>
+                                <td>New Orleans Cajun Delights</td>
+                                <td>2</td>
+                            </tr>
+                            <tr>
+                                <td>Faro Madeiras</td>
+                                <td>2</td>
+                            </tr>
+                            <tr>
+                                <td>Aux joyeux ecclésiastiques</td>
+                                <td>2</td>
+                            </tr>
+                            <tr>
+                                <td>Refrescos Americanas LTDA</td>
+                                <td>1</td>
+                            </tr>
+                            <tr>
+                                <td>Et plus...</td>
+                                <td>...</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p> Ainsi, on retrouve 12 fournisseurs qui proposent des produits en bouteilles.
+                        La plupart d’entre eux n’en proposent qu’un. C’est Exotic Liquids qui en propose
+                        le plus avec un total de 4 produits en bouteilles, suivi de Bigfoot Breweries avec
+                        3 produits en bouteilles. En outre, beaucoup de founisseurs ne proposent pas de produits en bouteilles
+                    </p>
+                </li>
+                <li>
+                    <div class="exemple1">
+                        <h3>On veut le chiffre d'affaires total généré avec les informations dont on dispose.</h3>
+                        <table>
+                            <caption>Requete QBE pour <strong>sans</strong> remise</caption>
+                            <tr>
+                                <th>Champ :</th>
+                                <td>PrixUnitCli</td>
+                                <td>QteCom</td>
+                                <td>ChiffreAffaire</td>
+                            </tr>
+                            <tr>
+                                <th>Table :</th>
+                                <td>DetailCommande</td>
+                                <td>DetailCommande</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <th>Opération :</th>
+                                <td></td>
+                                <td></td>
+                                <td>Somme</td>
+                            </tr>
+                            <tr>
+                                <th>Afficher :</th>
+                                <td></td>
+                                <td></td>
+                                <td>oui</td>
+                            </tr>
+                        </table>
+                        <table>
+                            <caption>Chiffre d'affaire <strong>sans</strong> remise</caption>
+                            <thead>
+                            <th>ChiffreAffaire</th>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>1648176,95€</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <table>
+                            <caption>Requete QBE pour <strong>avec</strong> remise</caption>
+                            <tr>
+                                <th>Champ :</th>
+                                <td>PrixUnitCli</td>
+                                <td>QteCom</td>
+                                <td>Remise</td>
+                                <td>ChiffreAffaire</td>
+                            </tr>
+                            <tr>
+                                <th>Table :</th>
+                                <td>DetailCommande</td>
+                                <td>DetailCommande</td>
+                                <td>DetailCommande</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <th>Opération :</th>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>Somme</td>
+                            </tr>
+                            <tr>
+                                <th>Afficher :</th>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>oui</td>
+                            </tr>
+                        </table>
+                        <table>
+                            <caption>Chiffre d'affaire <strong>avec</strong> remise</caption>
+                            <thead>
+                            <th>ChiffreAffaire</th>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>1647111,47€</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p> Le chiffre d'affaire reste très élevé que ce soit avec remise ou sans. On note quand meme une
+                        différence de 37'706,48€ si il y a remise.
+                    </p>
+                </li>
+                <li>
+                    <div class="exemple1">
+                        <h3>Dans quelles villes la clientèle est-elle la plus importante ? Citer les 3 premières.</h3>
+                        <table>
+                            <caption>Requete QBE</caption>
+                            <tr>
+                                <th>Champ :</th>
+                                <td>VilleCli</td>
+                                <td>VilleCli</td>
+                            </tr>
+                            <tr>
+                                <th>Table :</th>
+                                <td>Client</td>
+                                <td>Client</td>
+                            </tr>
+                            <tr>
+                                <th>Opération :</th>
+                                <td>Regroupement</td>
+                                <td>Compte</td>
+                            </tr>
+                        </table>
+                        <div>SELECT VilleCli, Count(VilleCli) AS NbrVilleCli</div>
+                        <div>FROM Client</div>
+                        <div>GROUP BY Client.VilleCli;</div>
+                        <table>
+                            <caption>Nombres de clients par villes</caption>
+                            <thead>
+                            <th>VilleCli</th>
+                            <th>NbrVilleCli</th>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>Agen</td>
+                                <td>3</td>
+                            </tr>
+                            <tr>
+                                <td>Lille</td>
+                                <td>3</td>
+                            </tr>
+                            <tr>
+                                <td>Nantes</td>
+                                <td>3</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p> On peut voir Agen, Lille et Nantes dans les 3 premières villes dans lesquelles la clientèle est
+                        la plus élevée avec un total de 3 clients dans chaque ville.
+                    </p>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <footer>
+        <div class="footer">
+            <div class="groupe">
+                Alyssa AUBRY - Alicia BESSAS - Mehtab CHEEMA - Guillaume MARTINS
+            </div>
+        </div>
+    </footer>
+</div>
+</body>
+</html>

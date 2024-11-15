@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Compte rendu KDou - Mission 3</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="container">
+    <header>
+        <div class="bandeau">
+            <img src="Logo.png" alt="logo Kdou" width="215" height="195"/>
+        </div>
+        <div class="barre">
+            <nav>
+                <ul>
+                    <li><a href ="index.html"><h3> Accueil</h3></a></li>
+                    <li><a href ="mission1.html"><h3>Mission1</h3></a></li>
+                    <li><a href ="mission2.html"><h3>Mission2</h3></a></li>
+                    <li><a href ="mission3.html"><h3>Mission3</h3></a></li>
+                    <li><a href ="conclusion.html"><h3>Conclusion</h3></a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <div class="page">
+        <div class="titre"> -- Mission 3 --</div>
+        <div class="pwrap">
+            <div class="p1">
+                <h2> Contexte </h2>
+                <p>Comme la mission 2, la troisième mission nous demande encore d’exploiter
+                    la base de données de l’entreprise Kdou et d’en produire des indicateurs.
+                    Seulement ici, on s’attarde plus sur la partie SQL des requêtes que sur
+                    le QBE comme précédemment. De plus, on rentre beaucoup plus dans du cas par cas,
+                    avec des requêtes poussées et précises. Celles-ci sont donc plus difficiles à
+                    produire et demande plus de rigueurs, en voici des exemples : </p>
+            </div>
+            <ul>
+                <li>
+                    <div class="exemple1">
+                        <h2> 1/ Boissons et Desserts</h2>
+                    <h3> On veut le chiffre d'affaires généré par catégorie desserts ou catégorie boissons.</h3>
+                        <div>SELECT Categorie.NomCateg, Sum(Produit.PrixUnit) AS ChiffreDaffaire</div>
+                        <div> FROM Categorie INNER JOIN Produit ON Categorie.CodeCateg=Produit.CodeCateg</div>
+                        <div> WHERE Categorie.NomCateg IN ("Boissons","Desserts")</div>
+                        <div> GROUP BY Categorie.NomCateg;</div>
+                    </div>
+                    <table>
+                        <caption>Chiffre d'affaire total par catégorie</caption>
+                        <thead>
+                        <th>NomCateg</th>
+                        <th>ChiffreDaffaire</th>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>Boissons</td>
+                            <td>1889,41€</td>
+                        </tr>
+                        <tr>
+                            <td>Desserts</td>
+                            <td>361,47€ </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <p> Ainsi, le chiffre d'affaires généré par la catégorie desserts s’élève à 361,47€
+                        tandis que le chiffre d’affaire de la catégorie boissons est de 1889,41€.
+                        La vente de boissons est donc beaucoup plus rentable que la vente de desserts.
+                    </p>
+                </li>
+                <li>
+                    <div class="exemple1">
+                        <h2> 2/ offre de KDou</h2>
+                        <h3> Donner des informations sur les fournisseurs qui proposent des produits qui ne sont pas commandés actuellement</h3>
+                        <div>SELECT DISTINCT F.Societe, F.Adresse, F.Ville ,P.NomProd AS NonCommandes, P.RefProd</div>
+                        <div> FROM (Fournisseur F INNER JOIN Produit P ON F.NoFour = P.NoFour)</div>
+                        <div> LEFT JOIN DetailCommande DC ON P.RefProd = DC.RefProd</div>
+                        <div> WHERE DC.RefProd IS NULL</div>
+                        <div> ORDER BY 1,2,3;</div>
+                    </div>
+                    <table>
+                        <caption>Informations des fournisseurs et leurs produits non commandés</caption>
+                        <thead>
+                        <th>Societe</th>
+                        <th>Adresse</th>
+                        <th>Ville</th>
+                        <th>NonCommandes</th>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>Edwin Liquids</td>
+                            <td>11 Hickson Road</td>
+                            <td>Sidney</td>
+                            <td>Tim Tams</td>
+                        </tr>
+                        <tr>
+                            <td>Exotic Liquids</td>
+                            <td>49 Gillbert St. </td>
+                            <td>London</td>
+                            <td>Beer native</td>
+                        </tr>
+                        <tr>
+                            <td>Exotic Liquids</td>
+                            <td>49 Gillbert St.</td>
+                            <td>London</td>
+                            <td>Blue Wine</td>
+                        </tr>
+                        <tr>
+                            <td>Exotic Liquids</td>
+                            <td>49 Gillbert St.</td>
+                            <td>London</td>
+                            <td>Brastislava Vodka</td>
+                        </tr>
+                        <tr>
+                            <td>Exotic Liquids</td>
+                            <td>49 Gillbert St.</td>
+                            <td>London</td>
+                            <td>Calvanelle</td>
+                        </tr>
+                        <tr>
+                            <td>etc...</td>
+                        </tr>
+                        <tr>
+                            <td>Faro Madeiras</td>
+                            <td>Praca da Republica N.80 Sala 305 </td>
+                            <td>Sao Paulo</td>
+                            <td>Cachaca zuavio</td>
+                        </tr>
+                        <tr>
+                            <td>Et plus</td>
+                            <td>...</td>
+                            <td>...</td>
+
+                        </tr>
+                        </tbody>
+                    </table>
+                    <p> Quand on consulte l'entièreté de la base de donnée, on remarque que la plupart des produits
+                        non commandés proviennent de Exotic Liquids, le fournisseur de boissons provenant de Londres.
+                        On peut alors supposer que beaucoup de boissons ne sont pas commandées par les clients,
+                        surprenant quand on connaît le chiffre d'affaires de la vente de boissons qu’on a calculé à la question précédente.
+                    </p>
+                </li>
+                <li>
+                    <div class="exemple1">
+                        <h2>3/ Provenance des produits</h2>
+                        <h3>  Pour l’Allemagne pays proche, quels sont les desserts ou boissons vendus à moins de 100 euros ?</h3>
+                        <div>SELECT Fournisseur.Pays, Categorie.NomCateg, Produit.NomProd, Produit.PrixUnit</div>
+                        <div> FROM Fournisseur</div>
+                        <div> INNER JOIN (Categorie INNER JOIN Produit ON Categorie.CodeCateg = Produit.CodeCateg) ON</div>
+                        <div> Fournisseur.NoFour = Produit.NoFour</div>
+                        <div> WHERE Fournisseur.Pays Like ‘Allemagne’ AND Categorie.NomCateg in ( 'Boissons', 'desserts')</div>
+                        <div> AND Produit.PrixUnit<100</div>
+                        <div> ORDER BY 1,2,3,4;</div>
+                    </div>
+                    <table>
+                        <caption>Les boissons et desserts venant d'Allemagne</caption>
+                        <thead>
+                        <th>Pays</th>
+                        <th>NomCateg</th>
+                        <th>NomProd</th>
+                        <th>PrixUnit</th>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>Allemagne</td>
+                            <td>Boissons</td>
+                            <td>Rhonbrau Klosterbier</td>
+                            <td>86,46€</td>
+                        </tr>
+                        <tr>
+                            <td>Allemagne</td>
+                            <td>Desserts </td>
+                            <td>NuNuCa NuB-Nougat-Creme</td>
+                            <td>11,67€</td>
+                        </tr>
+                        <tr>
+                            <td>Allemagne</td>
+                            <td>Desserts</td>
+                            <td>Gumbar Gummibarchen</td>
+                            <td>26,03€</td>
+                        </tr>
+                        <tr>
+                            <td>Allemagne</td>
+                            <td>Desserts</td>
+                            <td>Schoggi Schokolade</td>
+                            <td>36,58€</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <p> L’allemagne vend donc plus de dessert à moins de 100 euros que de boissons à moins de 100 euros.
+                        De plus, le prix de la boisson est quasiment le triple de celui du dessert le plus cher à 36,58 euros.
+                        On peut alors supposer avec nos indicateurs précédents, les boissons sont plus chères que les desserts,
+                        explicant alors le chiffre d'affaire de cette catégorie (vu dans l'exemple 1)
+                    </p>
+                </li>
+                <li>
+                    <div class="exemple1">
+                        <h2>4/ La clientèle</h2>
+                        <h3>  Un client nantais Le verre à soi souhaite savoir quels autres clients nantais
+                            commandent aussi des produits en Allemagne pour envisager de futures livraisons groupées</h3>
+                        <div>SELECT DISTINCT C.SocieteCli, C.VilleCli, F.Pays AS Fournisseur</div>
+                        <div> FROM (CLIENT AS C INNER JOIN Commande</div>
+                        <div>ON C.CodeCli = Commande.CodeCli)</div>
+                        <div>INNER JOIN ((FOURNISSEUR AS F</div>
+                        <div>INNER JOIN Produit ON F.NoFour = Produit.NoFour)</div>
+                        <div>INNER JOIN DetailCommande </div>
+                        <div>ON Produit.RefProd = DetailCommande.RefProd)</div>
+                        <div>ON Commande.NoCom = DetailCommande.NoCom</div>
+                        <div> WHERE C.VilleCli = "Nantes" AND F.Pays = "Allemagne";</div>
+                    </div>
+                    <table>
+                        <caption>Les clients de Nantes qui commandent en Allemagne</caption>
+                        <thead>
+                        <th>SocieteCli</th>
+                        <th>VilleCli</th>
+                        <th>Founisseur</th>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>Pedro's house</td>
+                            <td>Nantes</td>
+                            <td>Allemagne</td>
+                        </tr>
+                        <tr>
+                            <td>Table nantaise</td>
+                            <td>Nantes</td>
+                            <td>Allemagne</td>
+                        </tr>
+                        <tr>
+                            <td>Verre à soi</td>
+                            <td>Nantes</td>
+                            <td>Allemagne</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <p> Outre le Verre à soi qui commande des produits en Allemagne, on retrouve également
+                        Pedro’s House et Table nantaise, des sociétés nantaises qui commandent des produits en allemagne.
+                    </p>
+                </li>
+                <li>
+                    <div class="exemple1">
+                        <h2>Présentation de nos propres indicateurs</h2>
+                        <ol>
+                            <li>
+                                <h3>Alicia</h3>
+                                <p>  Pour ma requête, j’ai voulu m’inspirer de la question 4)a. du sujet où
+                                    on voulait savoir combien de clients nantais commandent des produits en allemagne
+                                    pour envisager de futures livraisons groupées. L’idée d’une livraison groupée est
+                                    une idée qui m’est venue à l'esprit dès la première SAE sur Kdou pour être dans une
+                                    logique plus écologique au niveau des voyages des produits, que ca soit en avion ou
+                                    en bateau compte tenu de l'impact sur la pollution. Mon but est donc avec ma requête
+                                    d’afficher le nombre de sociétés étant dans la même ville et commandant leur produit
+                                    dans le même pays.
+                                 Cependant, je n’ai pas réussi à faire apparaître exactement ce que je cherchais...
+                                J'ai pu tout de même afficher le tableau avec la requete SQL suivante:</p>
+                                <div>SELECT DISTINCT F.Pays AS Fournisseur, C.SocieteCli, C.VilleCli</div>
+                                <div>FROM CLIENT AS C</div>
+                                <div>INNER JOIN (Commande</div>
+                                <div>INNER JOIN (FOURNISSEUR AS F</div>
+                                <div>INNER JOIN (Produit</div>
+                                <div>INNER JOIN DetailCommande</div>
+                                <div>ON Produit.RefProd = DetailCommande.RefProd)</div>
+                                <div>ON F.NoFour = Produit.NoFour)</div>
+                                <div>ON Commande.NoCom = DetailCommande.NoCom)</div>
+                                <div>ON C.CodeCli = Commande.CodeCli</div>
+                                <div>ORDER BY 1,3;</div>
+                                <table>
+                                    <caption>Les différents clients de la même ville commendant en Allemagne</caption>
+                                    <thead>
+                                    <th>Fournisseur</th>
+                                    <th>SocieteCli</th>
+                                    <th>VilleCli</th>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td>Allemagne</td>
+                                        <td>Creperie de la gare</td>
+                                        <td>Versailles</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Allemagne</td>
+                                        <td>Le Nostradamus</td>
+                                        <td>Agen</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Allemagne</td>
+                                        <td>Délices d'Agen</td>
+                                        <td>Agen</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Allemagne</td>
+                                        <td>Le Petit Hotel du Grand</td>
+                                        <td>Agen</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Allemagne</td>
+                                        <td>Le clos bisontin</td>
+                                        <td>Besancon</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Allemagne</td>
+                                        <td>Chez Kév </td>
+                                        <td>Besancon</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Et plus...</td>
+                                        <td>...</td>
+                                        <td>...</td>
+
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                <p>
+                                    Par lecture du tableau, on peut tout de suite voir qu’il y a 3 sociétés qui commandent
+                                    en Allemagne qui sont situées à Agen, 2 à Caen et etc… La base de Kdou n'étant pas
+                                    très grande, il est facile de compter le nombre de sociétés par ville sans demander
+                                    de l’aide au programme. Cependant, dans un autre contexte où la base de données
+                                    serait bien plus importante… ce n’est pas l’idéal.
+                                </p>
+                            </li>
+                            <li>
+                                <h3>Alyssa</h3>
+                                <p>Pour ma requête, je m’inspire de la question 2.a) qui correspond à l’affichage des produits non-commandés.
+                                    Alors le but va être de supprimer tous les produits non-commandés. Pour KDOU, revoir ses
+                                    produits et arrêter la production de certains va permettre un gain d’économie et éviter
+                                    le gaspillage des produits non-commandés et donc non-consommés. Cela va contribuer à
+                                    leur image “éco-friendly”.
+                                </p>
+                                <div>DELETE FROM Produit</div>
+                                <div>WHERE RefProd IN ( SELECT P.RefProd</div>
+                                <div> FROM Produit P LEFT JOIN DetailCommande Dc</div>
+                                <div>ON P.RefProd = Dc.RefProd</div>
+                                <div>WHERE Dc.RefProd IS NULL );</div>
+                                <p> il n'y a donc pas de table à afficher par la suite vu que les informations
+                                    qui normalement devrait apparaitrent, n'apparaissent plus. Le tableau est vide !</p>
+                                </table>
+                            </li>
+                            <li>
+                                <h3>Methab</h3>
+                                <p> Pour ma requête j’ai voulu m’axer au sujet de la santé et les prix des produits,
+                                    cette requête trie les boissons et les desserts par prix unitaire. Chez KDou, les
+                                    employés pourraient voir les produits haut de gamme dans ces catégories, cela leur
+                                    permettrait de déterminer si les produits plus chers peuvent aussi correspondre à
+                                    des options plus saines ou non pour la santé.
+                                </p>
+                                <div>SELECT RefProd, NomProd, CodeCateg, PrixUnit</div>
+                                <div>FROM produit</div>
+                                <div>WHERE CodeCateg</div>
+                                <div>ORDER BY 1,2,3,4;</div>
+
+                                <p> (Aucun tableau n'apparait sur le document SAE envoyé donc impossible de représenter un tableau ici...)</p>
+                            </li>
+                            <li>
+                                <h3>Guillaume</h3>
+                                <p> aucun travail n'a été réalisé ici</p>
+                            </li>
+                        </ol>
+                    </div>
+                </li>
+            </ul>
+        </div>
+     </div>
+</div>
+<footer>
+    <div class="footer">
+        <div class="groupe">
+                Alyssa AUBRY - Alicia BESSAS - Mehtab CHEEMA - Guillaume MARTINS
+        </div>
+    </div>
+</footer>
+</div>
+</body>
+</html>

@@ -1,0 +1,135 @@
+* {
+    box-sizing: border-box;
+}
+@media (max-width: 1010px) {
+    body {
+        margin-top: 6rem;
+    }
+}
+@media (max-width: 750px) {
+    .one .image {
+        max-width: 100%;
+        float: none;
+    }
+}
+@media (max-width: 1500px) {
+    .bandeau nav ul{
+        max-width: 110rem;
+    }
+}
+
+
+.bandeau{
+    display:flex;
+    align-items: flex-end;
+    justify-content: center;
+}
+nav ul {
+    list-style-type: none;
+    margin:3px;
+    padding: 10px 250px;
+    overflow: hidden;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+nav ul li a {
+    display : block;
+    color:black;
+    text-align : justify;
+    padding: 20px 60px;
+    text-decoration: none;
+    width: 100%;
+}
+.barre {
+    padding: 0;
+    border-bottom: .1rem solid rgba(26, 30, 36, .2);
+    border-top: .1rem solid rgba(26, 30, 36, .2);
+}
+
+.page{
+    position: relative;
+    z-index: 5;
+    padding: 3rem 0 7rem;
+}
+.page .pwrap{
+    padding: 2rem 0;
+    margin: 0 auto;
+}
+.pwrap{
+    max-width: 1010px;
+}
+p{
+    margin-bottom: 4rem;
+    line-height: 1.7em;
+    display: block;
+}
+.conclusion p{
+    margin-bottom: 1rem;
+    line-height: 1.7em;
+    display: block;
+}
+
+.one .image{
+    padding: 0 0 1.5rem 6rem;
+    max-width: 55%;
+    float:right;
+}
+.titre{
+    text-align: center;
+    padding: 50px;
+    color: #000000;
+    font-size: 2.5rem;
+    font-weight: bold;
+}
+.texte-mission1{
+    display: grid;
+    list-style: none;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: 1fr;
+    grid-gap: 3rem;
+
+}
+
+.table{
+    list-style-type: none;
+    margin:3px;
+    padding: 10px 250px;
+    overflow: hidden;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+table {
+    margin: 30px;
+    padding: 20px;
+    border: 1px solid black;
+    background-color: #faeddb;
+}
+th{
+    text-align: center;
+
+}
+td{
+    border: 1px solid black;
+    text-align: center;
+
+}
+
+
+.exemple1{
+    padding-top: 3rem;
+    border-top: .1rem solid rgba(26, 30, 36, .2);
+}
+
+
+
+.footer{
+    background: #1A1E24;
+    padding: 7.5rem;
+}
+.footer .groupe{
+    font-family: "Roboto", Arial, Tahoma, Verdana, Helvetica, sans-serif;
+    color: #FFFFFF;
+    text-align: center;
+}
